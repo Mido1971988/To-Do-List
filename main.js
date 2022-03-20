@@ -15,11 +15,11 @@ input.style.cssText = "width:50%; padding:10px; border:none; border-radius:5px; 
 add.style.cssText = "background-color:red; color:white; border:none; border-radius:5px; height:30px; width:100px; margin-left:20px; cursor:pointer;"
 tasks.style.cssText = "background-color:#eee; position:absolute; top:100px; width:100%; left:0; padding:20px; box-sizing:border-box; border-radius:5px; display:grid; gap:20px; "
 // new Task css style
-let taskStyle = "padding:15px; background-color:white; border-radius:5px; display:grid; grid-template-columns:1fr 1.5fr 0.3fr; "
+let taskStyle = "padding:15px; background-color:white; border-radius:5px; display:grid; grid-template-columns:2fr 1fr 0.3fr; "
 // delete button css style
 let deleteStyle = "padding:5px; background-color:red; color:white; border-radius:5px; cursor:pointer; border:none; "
 // completed button css style
-let compeleteStyle = "padding:5px; background-color:grey; color:white; border-radius:5px; cursor:pointer; border:none; width:50%; font-size:12px"
+let compeleteStyle = "padding:5px; background-color:grey; color:white; border-radius:5px; cursor:pointer; border:none; width:90%; font-size:12px"
 
 // JS
 
