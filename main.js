@@ -3,10 +3,16 @@ let input = document.querySelector(".input")
 let add = document.querySelector(".add")
 let tasks = document.querySelector(".tasks")
 
+// Header
+let head = document.createElement("h1")
+head.textContent = "TO DO LIST"
+head.style.cssText = "text-align:center; color:red;"
+document.body.prepend(head)
+
 // CSS TEXT
-container.style.cssText = "width:350px; background-color:#eee; margin:100px auto; padding:20px; border-radius:5px; position:relative; box-sizing:border-box;"
+container.style.cssText = "width:400px; background-color:#eee; margin:50px auto; padding:20px; border-radius:5px; position:relative; box-sizing:border-box;"
 input.style.cssText = "width:60%; padding:10px; border:none; border-radius:5px; outline:none;"
-add.style.cssText = "background-color:red; color:white; border:none; border-radius:5px; padding:10px; margin-left:20px; cursor:pointer;"
+add.style.cssText = "background-color:red; color:white; border:none; border-radius:5px; height:30px; width:100px; margin-left:20px; cursor:pointer;"
 tasks.style.cssText = "background-color:#eee; position:absolute; top:100px; width:100%; left:0; padding:20px; box-sizing:border-box; border-radius:5px; display:grid; gap:20px; "
 // new Task css style
 let taskStyle = "padding:15px; background-color:white; border-radius:5px; display:grid; grid-template-columns:1fr 1.5fr 0.3fr; "
@@ -92,13 +98,13 @@ add.addEventListener("click", function(e){
 // Mark Completed
 document.addEventListener("click", function(e){
     if (e.target.className === "done") {
-        if (e.target.textContent === "Not-Completed") {
+        if (e.target.textContent === "Pending") {
         e.target.style.backgroundColor = "green"
         e.target.textContent = "Completed"
         window.localStorage.setItem(e.target.parentNode.id, "done")
         } else if(e.target.textContent === "Completed") {
         e.target.style.backgroundColor = "grey"
-        e.target.textContent = "Not-Completed"
+        e.target.textContent = "Pending"
         window.localStorage.removeItem(e.target.parentNode.id, "done")
         }
     }
@@ -139,7 +145,7 @@ function createEls() {
     deleteBtn.style.cssText = deleteStyle
     completedBtn.style.cssText = compeleteStyle
     deleteBtn.textContent = "Delete"
-    completedBtn.textContent = "Not-Completed"
+    completedBtn.textContent = "Pending"
     deleteBtn.setAttribute("class", "delete")
     completedBtn.setAttribute("class", "done")
 } 
