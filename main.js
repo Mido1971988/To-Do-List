@@ -4,16 +4,16 @@ let add = document.querySelector(".add")
 let tasks = document.querySelector(".tasks")
 
 // CSS TEXT
-container.style.cssText = "width:500px; background-color:#eee; margin:20px auto; padding:20px; border-radius:5px; position:relative; box-sizing:border-box;"
+container.style.cssText = "width:450px; background-color:#eee; margin:100px auto; padding:20px; border-radius:5px; position:relative; box-sizing:border-box;"
 input.style.cssText = "width:70%; padding:10px; border:none; border-radius:5px; outline:none;"
 add.style.cssText = "background-color:red; color:white; border:none; border-radius:5px; padding:10px; margin-left:20px; cursor:pointer;"
-tasks.style.cssText = "background-color:#eee; position:absolute; top:100px; width:100%; left:0; padding:20px; box-sizing:border-box; border-radius:5px; display:grid; gap:20px"
+tasks.style.cssText = "background-color:#eee; position:absolute; top:100px; width:100%; left:0; padding:20px; box-sizing:border-box; border-radius:5px; display:grid; gap:20px; "
 // new Task css style
 let taskStyle = "padding:15px; background-color:white; border-radius:5px; display:grid; grid-template-columns:1fr 1.5fr 0.3fr; "
 // delete button css style
 let deleteStyle = "padding:5px; background-color:red; color:white; border-radius:5px; cursor:pointer; border:none; "
 // completed button css style
-let compeleteStyle = "padding:5px; background-color:grey; color:white; border-radius:5px; cursor:pointer; border:none; width:50%; "
+let compeleteStyle = "padding:5px; background-color:grey; color:white; border-radius:5px; cursor:pointer; border:none; width:50%; font-size:12px"
 
 // JS
 
