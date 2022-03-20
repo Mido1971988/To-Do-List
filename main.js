@@ -126,7 +126,7 @@ document.addEventListener("click", function(e){
 // Functions 
 
 function noTaskToShow() {
-    if(window.localStorage.length === 0) {
+    if(tasks.childElementCount == 0) {
         let noTask = document.createElement("div")
         noTask.className = "noTask"
         noTask.textContent = "NO TASKS TO SHOW"
