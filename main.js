@@ -10,8 +10,8 @@ head.style.cssText = "text-align:center; color:red;"
 document.body.prepend(head)
 
 // CSS TEXT
-container.style.cssText = "width:400px; background-color:#eee; margin:50px auto; padding:20px; border-radius:5px; position:relative; box-sizing:border-box;"
-input.style.cssText = "width:60%; padding:10px; border:none; border-radius:5px; outline:none;"
+container.style.cssText = "width:350px; background-color:#eee; margin:50px auto; padding:20px; border-radius:5px; position:relative; box-sizing:border-box;"
+input.style.cssText = "width:50%; padding:10px; border:none; border-radius:5px; outline:none;"
 add.style.cssText = "background-color:red; color:white; border:none; border-radius:5px; height:30px; width:100px; margin-left:20px; cursor:pointer;"
 tasks.style.cssText = "background-color:#eee; position:absolute; top:100px; width:100%; left:0; padding:20px; box-sizing:border-box; border-radius:5px; display:grid; gap:20px; "
 // new Task css style
