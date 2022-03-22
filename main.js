@@ -113,12 +113,14 @@ document.addEventListener("click", function(e){
 // delete task
 document.addEventListener("click", function(e){
     if (e.target.className === "delete") {
-        e.target.parentNode.remove()
-        let parentId = e.target.parentNode.id
-        idNum = +(parentId.match(/\d+/g).join(""))
-        window.localStorage.removeItem(idNum)
-        window.localStorage.removeItem(parentId)
-        noTaskToShow()
+        if(confirm("Are You Sure?")){
+            e.target.parentNode.remove()
+            let parentId = e.target.parentNode.id
+            idNum = +(parentId.match(/\d+/g).join(""))
+            window.localStorage.removeItem(idNum)
+            window.localStorage.removeItem(parentId)
+            noTaskToShow()
+        }
     }
 })
 
