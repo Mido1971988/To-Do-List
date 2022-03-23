@@ -154,5 +154,5 @@ function createEls() {
 
 function appendFunc(){
     task.append(completedBtn ,deleteBtn)
-    tasks.append(task)
+    tasks.prepend(task)
 }
