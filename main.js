@@ -78,6 +78,9 @@ for([index, value] of sortedArr) {
         compEl.style.backgroundColor = "green"
         compEl.textContent = "Completed"
         compEl.classList.add("completed")
+        if(compEl.classList.contains("notCompleted")){
+            compEl.classList.remove("notCompleted")
+        }
     }
 }
 
@@ -114,22 +117,22 @@ add.addEventListener("click", function(e){
 
 // Mark Completed
 document.addEventListener("click", function(e){
-    if (e.target.classList.contains("done")) {
-        if (e.target.classList.contains("notCompleted")) {
+    if(e.target.classList.contains("done") && e.target.classList.contains("notCompleted")) {
+        console.log("if")
         e.target.style.backgroundColor = "green"
         e.target.textContent = "Completed"
         e.target.classList.remove("notCompleted")
         e.target.classList.add("completed")
         noOfCompleted()
         window.localStorage.setItem(e.target.parentNode.id, "done")
-        } else if(e.target.classList.contains("completed")) {
+    }else if(e.target.classList.contains("done") && e.target.classList.contains("completed")){
+        console.log("else")
         e.target.style.backgroundColor = "grey"
         e.target.textContent = "Pending";
         e.target.classList.remove("completed")
         e.target.classList.add("notCompleted")
         noOfCompleted()
         window.localStorage.removeItem(e.target.parentNode.id, "done")
-        }
     }
 })
 
