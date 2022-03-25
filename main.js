@@ -144,6 +144,7 @@ document.addEventListener("click", function(e){
             window.localStorage.removeItem(parentId)
             noTaskToShow()
             noOfTasks()
+            noOfCompleted()
         }
     }
 })
