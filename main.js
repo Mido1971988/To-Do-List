@@ -2,6 +2,13 @@ let container = document.querySelector(".container")
 let input = document.querySelector(".input")
 let add = document.querySelector(".add")
 let tasks = document.querySelector(".tasks")
+let count = document.querySelector(".count")
+let tasksCount = document.querySelector(".tasksCount")
+let completedCount = document.querySelector(".completedCount")
+let tasksCircle = document.querySelector(".tasksCircle")
+let completedCircle = document.querySelector(".completedCircle")
+let tasksCountTxt = document.querySelector(".tasksCountTxt")
+let compCountTxt = document.querySelector(".compCountTxt")
 
 // Header
 let head = document.createElement("h1")
@@ -14,6 +21,14 @@ container.style.cssText = "width:350px; background-color:#eee; margin:50px auto;
 input.style.cssText = "width:50%; padding:10px; border:none; border-radius:5px; outline:none;"
 add.style.cssText = "background-color:red; color:white; border:none; border-radius:5px; height:30px; width:100px; margin-left:20px; cursor:pointer;"
 tasks.style.cssText = "background-color:#eee; position:absolute; top:100px; width:100%; left:0; padding:20px; box-sizing:border-box; border-radius:5px; display:grid; gap:20px; "
+// count of Tasks css style
+count.style.cssText = "display:flex; justify-content:space-evenly;"
+tasksCount.style.cssText = "display:flex;"
+completedCount.style.cssText = "display:flex;"
+tasksCircle.style.cssText = "max-width:10px; max-height:10px; padding:10px; box-sizing:border-box; border-radius:50%; background-color:red; color:white; display:flex; justify-content:center; align-items:center; margin-left:5px"
+completedCircle.style.cssText = "max-width:10px; max-height:10px; padding:10px; box-sizing:border-box; border-radius:50%; background-color:red; color:white; display:flex; justify-content:center; align-items:center; margin-left:5px"
+tasksCountTxt.style.cssText = "color: gray;"
+compCountTxt.style.cssText = "color: gray;"
 // new Task css style
 let taskStyle = "padding:15px; background-color:white; border-radius:5px; display:grid; grid-template-columns:2fr 1fr 0.3fr; "
 // delete button css style
@@ -53,10 +68,6 @@ for (oldTask of oldTasksArr) {
     createEls()
     task.setAttribute("id", `ID-${oldTask[0]}`)
     task.textContent = oldTask[1]
-    if (completedBtn.classList.contains("completed")) {
-        completedBtn.style.backgroundColor = "green"
-        completedBtn.textContent = "Completed"
-    }
     appendFunc()
 }
 
@@ -66,8 +77,14 @@ for([index, value] of sortedArr) {
         let compEl = document.querySelector(`#${index} .done`)
         compEl.style.backgroundColor = "green"
         compEl.textContent = "Completed"
+        compEl.classList.add("completed")
     }
 }
+
+// no. of Tasks
+noOfTasks()
+// no. of completed
+noOfCompleted()
 
 // no Tasks to show
 noTaskToShow();
@@ -97,14 +114,20 @@ add.addEventListener("click", function(e){
 
 // Mark Completed
 document.addEventListener("click", function(e){
-    if (e.target.className === "done") {
-        if (e.target.textContent === "Pending") {
+    if (e.target.classList.contains("done")) {
+        if (e.target.classList.contains("notCompleted")) {
         e.target.style.backgroundColor = "green"
         e.target.textContent = "Completed"
+        e.target.classList.remove("notCompleted")
+        e.target.classList.add("completed")
+        noOfCompleted()
         window.localStorage.setItem(e.target.parentNode.id, "done")
-        } else if(e.target.textContent === "Completed") {
+        } else if(e.target.classList.contains("completed")) {
         e.target.style.backgroundColor = "grey"
-        e.target.textContent = "Pending"
+        e.target.textContent = "Pending";
+        e.target.classList.remove("completed")
+        e.target.classList.add("notCompleted")
+        noOfCompleted()
         window.localStorage.removeItem(e.target.parentNode.id, "done")
         }
     }
@@ -120,6 +143,7 @@ document.addEventListener("click", function(e){
             window.localStorage.removeItem(idNum)
             window.localStorage.removeItem(parentId)
             noTaskToShow()
+            noOfTasks()
         }
     }
 })
@@ -148,11 +172,23 @@ function createEls() {
     completedBtn.style.cssText = compeleteStyle
     deleteBtn.textContent = "Delete"
     completedBtn.textContent = "Pending"
+    task.setAttribute("class","task")
     deleteBtn.setAttribute("class", "delete")
     completedBtn.setAttribute("class", "done")
+    completedBtn.classList.add("notCompleted")
 } 
 
 function appendFunc(){
     task.append(completedBtn ,deleteBtn)
     tasks.prepend(task)
+    noOfTasks()
+}
+
+function noOfTasks() {
+    let x = document.querySelectorAll(".task").length
+    tasksCircle.innerHTML = x
+}
+function noOfCompleted() {
+    let x = document.querySelectorAll(".completed").length
+    completedCircle.innerHTML = x
 }
