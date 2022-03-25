@@ -118,7 +118,6 @@ add.addEventListener("click", function(e){
 // Mark Completed
 document.addEventListener("click", function(e){
     if(e.target.classList.contains("done") && e.target.classList.contains("notCompleted")) {
-        console.log("if")
         e.target.style.backgroundColor = "green"
         e.target.textContent = "Completed"
         e.target.classList.remove("notCompleted")
@@ -126,7 +125,6 @@ document.addEventListener("click", function(e){
         noOfCompleted()
         window.localStorage.setItem(e.target.parentNode.id, "done")
     }else if(e.target.classList.contains("done") && e.target.classList.contains("completed")){
-        console.log("else")
         e.target.style.backgroundColor = "grey"
         e.target.textContent = "Pending";
         e.target.classList.remove("completed")
