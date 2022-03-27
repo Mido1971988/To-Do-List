@@ -36,7 +36,7 @@ let taskStyle = "padding:15px; background-color:white; border-radius:5px; displa
 // edit button css style
 let editStyle = "padding:5px; background-color:red; color:white; border-radius:5px; cursor:pointer; border:none; max-height:25px; font-size:12px;"
 // delete button css style
-let deleteStyle = "padding:4px; background-color:red; color:white; border-radius:50%; cursor:pointer; border:none; position:absolute; right:0; top:0; transform:translate(50%, -50%);"
+let deleteStyle = "background-color:red; color:white; border-radius:50%; cursor:pointer; border:none; position:absolute; right:0; top:0; transform:translate(50%, -50%); width:20px; height:20px; text-align:center; padding-left:2px; box-sizing:border-box;"
 // completed button css style
 let compeleteStyle = "padding:5px; background-color:grey; color:white; border-radius:5px; cursor:pointer; border:none; width:80%; font-size:12px; max-height:25px; text-align:center"
 
