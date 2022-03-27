@@ -19,9 +19,9 @@ document.body.prepend(head)
 
 // CSS TEXT
 container.style.cssText = "width:350px; background-color:#eee; margin:50px auto; padding:20px; border-radius:5px; position:relative; box-sizing:border-box;"
-form.style.cssText = "display:flex;"
+form.style.cssText = "display:flex; align-items:center; justify-content:center"
 input.style.cssText = "width:50%; padding:10px; border:none; border-radius:5px; outline:none;"
-add.style.cssText = "background-color:red; color:white; border:none; border-radius:5px; height:30px; width:100px; margin-left:20px; cursor:pointer; display:flex; align-items:center; justify-content:center;"
+add.style.cssText = "background-color:red; color:white; border-radius:5px; height:30px; width:100px; margin-left:20px; cursor:pointer; display:flex; align-items:center; justify-content:center;"
 tasks.style.cssText = "background-color:#eee; position:absolute; top:100px; width:100%; left:0; padding:20px; box-sizing:border-box; border-radius:5px; display:grid; gap:20px; "
 // count of Tasks css style
 count.style.cssText = "display:flex; justify-content:space-evenly;"
@@ -38,7 +38,7 @@ let editStyle = "padding:5px; background-color:red; color:white; border-radius:5
 // delete button css style
 let deleteStyle = "background-color:red; color:white; border-radius:50%; cursor:pointer; border:none; position:absolute; right:0; top:0; transform:translate(50%, -50%); width:20px; height:20px; text-align:center; box-sizing:border-box;"
 // completed button css style
-let compeleteStyle = "padding:5px; background-color:grey; color:white; border-radius:5px; cursor:pointer; border:none; width:80%; font-size:12px; max-height:25px; text-align:center; box-sizing:border-box;"
+let compeleteStyle = "padding:5px; background-color:grey; color:white; border-radius:5px; cursor:pointer; border:none; width:90%; font-size:12px; max-height:25px; text-align:center; box-sizing:border-box;"
 
 // JS
 
