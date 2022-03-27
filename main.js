@@ -34,11 +34,11 @@ compCountTxt.style.cssText = "color: gray;"
 // new Task css style
 let taskStyle = "padding:15px; background-color:white; border-radius:5px; display:grid; grid-template-columns:2fr 1fr 0.3fr; position:relative; "
 // edit button css style
-let editStyle = "padding:5px; background-color:red; color:white; border-radius:5px; cursor:pointer; border:none; max-height:25px; font-size:12px;"
+let editStyle = "padding:5px; background-color:red; color:white; border-radius:5px; cursor:pointer; border:none; max-height:25px; font-size:12px; box-sizing:border-box;"
 // delete button css style
 let deleteStyle = "background-color:red; color:white; border-radius:50%; cursor:pointer; border:none; position:absolute; right:0; top:0; transform:translate(50%, -50%); width:20px; height:20px; text-align:center; padding-left:2px; box-sizing:border-box;"
 // completed button css style
-let compeleteStyle = "padding:5px; background-color:grey; color:white; border-radius:5px; cursor:pointer; border:none; width:80%; font-size:12px; max-height:25px; text-align:center"
+let compeleteStyle = "padding:5px; background-color:grey; color:white; border-radius:5px; cursor:pointer; border:none; width:80%; font-size:12px; max-height:25px; text-align:center; box-sizing:border-box;"
 
 // JS
 
