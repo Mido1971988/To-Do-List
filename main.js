@@ -1,4 +1,5 @@
 let container = document.querySelector(".container")
+let form = document.querySelector(".form")
 let input = document.querySelector(".input")
 let add = document.querySelector(".add")
 let tasks = document.querySelector(".tasks")
@@ -18,8 +19,9 @@ document.body.prepend(head)
 
 // CSS TEXT
 container.style.cssText = "width:350px; background-color:#eee; margin:50px auto; padding:20px; border-radius:5px; position:relative; box-sizing:border-box;"
+form.style.cssText = "display:flex;"
 input.style.cssText = "width:50%; padding:10px; border:none; border-radius:5px; outline:none;"
-add.style.cssText = "background-color:red; color:white; border:none; border-radius:5px; height:30px; width:100px; margin-left:20px; cursor:pointer;"
+add.style.cssText = "background-color:red; color:white; border:none; border-radius:5px; height:30px; width:100px; margin-left:20px; cursor:pointer; display:flex; align-items:center; justify-content:center;"
 tasks.style.cssText = "background-color:#eee; position:absolute; top:100px; width:100%; left:0; padding:20px; box-sizing:border-box; border-radius:5px; display:grid; gap:20px; "
 // count of Tasks css style
 count.style.cssText = "display:flex; justify-content:space-evenly;"
@@ -30,11 +32,13 @@ completedCircle.style.cssText = "max-width:10px; max-height:10px; padding:10px; 
 tasksCountTxt.style.cssText = "color: gray;"
 compCountTxt.style.cssText = "color: gray;"
 // new Task css style
-let taskStyle = "padding:15px; background-color:white; border-radius:5px; display:grid; grid-template-columns:2fr 1fr 0.3fr; "
+let taskStyle = "padding:15px; background-color:white; border-radius:5px; display:grid; grid-template-columns:2fr 1fr 0.3fr; position:relative; "
+// edit button css style
+let editStyle = "padding:5px; background-color:red; color:white; border-radius:5px; cursor:pointer; border:none; max-height:25px; font-size:12px;"
 // delete button css style
-let deleteStyle = "padding:5px; background-color:red; color:white; border-radius:5px; cursor:pointer; border:none; max-height:25px;"
+let deleteStyle = "padding:4px; background-color:red; color:white; border-radius:50%; cursor:pointer; border:none; position:absolute; right:0; top:0; transform:translate(50%, -50%);"
 // completed button css style
-let compeleteStyle = "padding:5px; background-color:grey; color:white; border-radius:5px; cursor:pointer; border:none; width:90%; font-size:12px; max-height:25px;"
+let compeleteStyle = "padding:5px; background-color:grey; color:white; border-radius:5px; cursor:pointer; border:none; width:80%; font-size:12px; max-height:25px; text-align:center"
 
 // JS
 
@@ -58,6 +62,7 @@ let oldTasksArr= [];
 let task;
 let deleteBtn;
 let completedBtn;
+let editBtn;
 
 for([index, value] of sortedArr) {
     if(!isNaN(index)) {
@@ -134,6 +139,19 @@ document.addEventListener("click", function(e){
     }
 })
 
+// Edit Task
+document.addEventListener("click" , function(e){
+    if (e.target.className === "edit"){
+        let editedPrompt = prompt("Edit Task",`${e.target.parentNode.firstChild.wholeText}`);
+        if(editedPrompt !== null) {
+            let editedTxt = document.createTextNode(editedPrompt)
+            e.target.parentNode.firstChild.remove()
+            e.target.parentNode.prepend(editedTxt)
+            window.localStorage.setItem(e.target.parentNode.id.match(/\d/ig).join("") , editedTxt.wholeText)
+        }
+    }
+})
+
 // delete task
 document.addEventListener("click", function(e){
     if (e.target.className === "delete") {
@@ -167,21 +185,25 @@ function noTaskToShow() {
 
 function createEls() {
     task = document.createElement("div")
-    deleteBtn = document.createElement("button")
-    completedBtn = document.createElement("button")
+    editBtn = document.createElement("div")
+    deleteBtn = document.createElement("div")
+    completedBtn = document.createElement("div")
     task.style.cssText = taskStyle
+    editBtn.style.cssText = editStyle
     deleteBtn.style.cssText = deleteStyle
     completedBtn.style.cssText = compeleteStyle
-    deleteBtn.textContent = "Delete"
+    editBtn.textContent = "Edit"
+    deleteBtn.textContent = "x"
     completedBtn.textContent = "Pending"
     task.setAttribute("class","task")
+    editBtn.setAttribute("class","edit")
     deleteBtn.setAttribute("class", "delete")
     completedBtn.setAttribute("class", "done")
     completedBtn.classList.add("notCompleted")
 } 
 
 function appendFunc(){
-    task.append(completedBtn ,deleteBtn)
+    task.append(completedBtn ,editBtn ,deleteBtn)
     tasks.prepend(task)
     noOfTasks()
 }
