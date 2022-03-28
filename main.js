@@ -42,100 +42,85 @@ let compeleteStyle = "padding:5px; background-color:grey; color:white; border-ra
 
 // JS
 
-// restore last i from LocalStorage
-let keysArr = Object.keys(window.localStorage)
-let onlyNums = keysArr.filter(el => !isNaN(el))
-let sortOnlyNums = onlyNums.sort((el, el2) => el - el2)
-let lastNum = +(sortOnlyNums.reverse()[0])
-
-
-// Restore old tasks
-localArrs = Object.entries(window.localStorage)
-let numsArr = localArrs.filter(([index, value]) => !isNaN(index))
-let strArr = localArrs.filter(([index, value]) => isNaN(index))
-let numsSorted = numsArr.sort(([index1, value1], [index2, value2]) => index1 - index2)
-let strSorted = strArr.sort(([index1, value1], [index2, value2]) => index1 - index2)
-let sortedArr = numsSorted.concat(strSorted)
-let oldTasksArr= [];
 
 // declare varaibles
 let task;
 let deleteBtn;
 let completedBtn;
 let editBtn;
+let idCount;
+let arrOfTasks = JSON.parse(window.localStorage.getItem("ToDoList"));
 
-for([index, value] of sortedArr) {
-    if(!isNaN(index)) {
-        oldTasksArr.push([index , value])
-    }
-}
-for (oldTask of oldTasksArr) {
-    createEls()
-    task.setAttribute("id", `ID-${oldTask[0]}`)
-    task.textContent = oldTask[1]
-    appendFunc()
-}
 
-// restore completed 
-for([index, value] of sortedArr) {
-    if(isNaN(index)) {
-        let compEl = document.querySelector(`#${index} .done`)
-        compEl.style.backgroundColor = "green"
-        compEl.textContent = "Completed"
-        compEl.classList.add("completed")
-        if(compEl.classList.contains("notCompleted")){
-            compEl.classList.remove("notCompleted")
+if(arrOfTasks && arrOfTasks.length > 0){
+    idCount = +Object.keys(arrOfTasks[arrOfTasks.length-1]).join("").match(/\d/ig).join("")
+    for ( let oneTask of arrOfTasks){
+        createEls()
+        let taskId = Object.keys(oneTask).join("").match(/ID-\d+/ig).join("")
+        task.setAttribute("id", taskId)
+        let tasktxtNode = oneTask[taskId]
+        task.prepend(tasktxtNode)
+        if (oneTask["status"] === "completed"){
+            completedBtn = document.querySelector(`#${taskId} .done`)
+            completedBtn.style.backgroundColor = "green"
+            completedBtn.textContent = "Completed"
+            completedBtn.classList.remove("pending")
+            completedBtn.classList.add("completed")
+            noOfCompleted()
+        } else if(oneTask["status"] === "pending"){
+
         }
     }
-}
-
-// no. of Tasks
-noOfTasks()
-// no. of completed
-noOfCompleted()
-
-// no Tasks to show
-noTaskToShow();
-
-// add new task
-let i;
-if (!isNaN(lastNum)){
-    i = lastNum
-} else {
-    i = 0
+}else {
+    arrOfTasks = []
+    idCount = 0;
+    noTaskToShow();
 }
 add.addEventListener("click", function(e){
     if(input.value !== "") {
-        i++
-        window.localStorage.setItem(i , input.value)
-        createEls()
-        task.setAttribute("id", `ID-${i}`)
-        task.textContent = input.value
-        appendFunc()
-        input.value = ""
-        if (document.body.contains(document.querySelector(".noTask"))) {
-        let noTask = document.querySelector(".noTask")
-        noTask.remove()
+        idCount++ 
+        let taskObj = {
+            [`ID-${idCount}`] : input.value ,
+            status : "Pending"
         }
+        arrOfTasks.push(taskObj)
+        window.localStorage.setItem( "ToDoList" , JSON.stringify(arrOfTasks))
+        createEls()
+        task.setAttribute("id",`ID-${idCount}`)
+        let tasktxtNode = input.value
+        task.prepend(tasktxtNode)
+        input.value = ""
     }
 })
 
 // Mark Completed
 document.addEventListener("click", function(e){
-    if(e.target.classList.contains("done") && e.target.classList.contains("notCompleted")) {
+    if(e.target.classList.contains("done") && e.target.classList.contains("pending")) {
         e.target.style.backgroundColor = "green"
         e.target.textContent = "Completed"
-        e.target.classList.remove("notCompleted")
+        e.target.classList.remove("pending")
         e.target.classList.add("completed")
         noOfCompleted()
-        window.localStorage.setItem(e.target.parentNode.id, "done")
+        let parentId = e.target.parentNode.id
+            for (let oneTask of arrOfTasks){
+                if (oneTask.hasOwnProperty(parentId)){
+                    oneTask["status"] = "completed"
+                    window.localStorage.setItem( "ToDoList" , JSON.stringify(arrOfTasks))
+                }
+            }
     }else if(e.target.classList.contains("done") && e.target.classList.contains("completed")){
         e.target.style.backgroundColor = "grey"
         e.target.textContent = "Pending";
         e.target.classList.remove("completed")
-        e.target.classList.add("notCompleted")
+        e.target.classList.add("pending")
         noOfCompleted()
-        window.localStorage.removeItem(e.target.parentNode.id, "done")
+        let parentId = e.target.parentNode.id
+            for (let oneTask of arrOfTasks){
+                if (oneTask.hasOwnProperty(parentId)){
+                    oneTask["status"] = "pending"
+                    window.localStorage.setItem( "ToDoList" , JSON.stringify(arrOfTasks))
+                }
+            }
     }
 })
 
@@ -147,7 +132,13 @@ document.addEventListener("click" , function(e){
             let editedTxt = document.createTextNode(editedPrompt)
             e.target.parentNode.firstChild.remove()
             e.target.parentNode.prepend(editedTxt)
-            window.localStorage.setItem(e.target.parentNode.id.match(/\d/ig).join("") , editedTxt.wholeText)
+            let parentId = e.target.parentNode.id
+            for (let oneTask of arrOfTasks){
+                if (oneTask.hasOwnProperty(parentId)){
+                    oneTask[parentId] = editedTxt.wholeText
+                    window.localStorage.setItem( "ToDoList" , JSON.stringify(arrOfTasks))
+                }
+            }
         }
     }
 })
@@ -158,9 +149,12 @@ document.addEventListener("click", function(e){
         if(confirm("Are You Sure?")){
             e.target.parentNode.remove()
             let parentId = e.target.parentNode.id
-            idNum = +(parentId.match(/\d+/g).join(""))
-            window.localStorage.removeItem(idNum)
-            window.localStorage.removeItem(parentId)
+            for (let oneTask of arrOfTasks){
+                if (oneTask.hasOwnProperty(parentId)){
+                    arrOfTasks.splice(arrOfTasks.indexOf(oneTask), 1)
+                    window.localStorage.setItem( "ToDoList" , JSON.stringify(arrOfTasks))
+                }
+            }
             noTaskToShow()
             noOfTasks()
             noOfCompleted()
@@ -199,20 +193,23 @@ function createEls() {
     editBtn.setAttribute("class","edit")
     deleteBtn.setAttribute("class", "delete")
     completedBtn.setAttribute("class", "done")
-    completedBtn.classList.add("notCompleted")
-} 
-
-function appendFunc(){
+    completedBtn.classList.add("pending")
     task.append(completedBtn ,editBtn ,deleteBtn)
     tasks.prepend(task)
     noOfTasks()
-}
+    if (document.body.contains(document.querySelector(".noTask"))) {
+        let noTask = document.querySelector(".noTask")
+        noTask.remove()
+        }
+    
+} 
+
 
 function noOfTasks() {
-    let x = document.querySelectorAll(".task").length
-    tasksCircle.innerHTML = x
+    let num = document.querySelectorAll(".task").length
+    tasksCircle.innerHTML = num
 }
 function noOfCompleted() {
-    let x = document.querySelectorAll(".completed").length
-    completedCircle.innerHTML = x
+    let num = document.querySelectorAll(".completed").length
+    completedCircle.innerHTML = num
 }
