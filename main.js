@@ -67,8 +67,6 @@ if(arrOfTasks && arrOfTasks.length > 0){
             completedBtn.classList.remove("pending")
             completedBtn.classList.add("completed")
             noOfCompleted()
-        } else if(oneTask["status"] === "pending"){
-
         }
     }
 }else {
